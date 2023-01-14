@@ -153,15 +153,118 @@ fn main() {
     // println!("The value of z is: {}", z);
     // println!("The value of x is: {}", x);
 
-    let mut st1 = String::new();
-    st1.push('a');
-    st1.push_str("bc");
-    println!("st1: {}", st1);
+    // let mut st1 = String::new();
+    // st1.push('a');
+    // st1.push_str("bc");
+    // println!("st1: {}", st1);
 
-    for word in st1.split_whitespace() {
-        println!("Word: {}", word);
+    // for word in st1.split_whitespace() {
+    //     println!("Word: {}", word);
+    // }
+
+    // let st2 = st1.replace("a", "Another");
+    // println!("st2: {}", st2);
+
+    // let str3 = String::from("x  t b h k k a m c");
+    // let mut v1: Vec<char> = str3.chars().collect();
+    // v1.sort();
+    // v1.dedup();
+    // for char in v1 {
+    //     println!("Char: {}", char);
+    // }
+
+    // let str4: &str = "Random String";
+    // let mut str5: String = str4.to_string();
+    // println!("str5: {}", str5);
+    // let byte_arr1: &[u8] = str5.as_bytes();
+    // let st6: &str = &str5[0..6];
+    // println!("st6 length: {}", st6.len());
+    // str5.clear();
+    // let st6 = String::from("Hello");
+    // let str7 = String::from("World");
+    // let st8 = st6 + &str7;
+    // for char in st8.bytes() {
+    //     println!("Char: {}", char);
+    // }
+    // let int_u8: u8 = 5;
+    // let int2_u8: u8 = 6;
+    // let int3_u32: u32 = (int_u8 as u32) + (int2_u8 as u32);
+
+    // enum Direction {
+    //     Up,
+    //     Down,
+    //     Left,
+    //     Right,
+    // }
+
+    // impl Direction {
+    //     fn get_direction(&self) {
+    //         match self {
+    //             Direction::Up => println!("Up"),
+    //             Direction::Down => println!("Down"),
+    //             Direction::Left => println!("Left"),
+    //             Direction::Right => println!("Right"),
+    //         }
+    //     }
+
+    //     fn get_direction2(&self) -> &str {
+    //         match self {
+    //             Direction::Up => "Up",
+    //             Direction::Down => "Down",
+    //             Direction::Left => "Left",
+    //             Direction::Right => "Right",
+    //         }
+    //     }
+    // }
+
+    // println!("Direction: {}", Direction::Up.get_direction2());
+
+    // let vec1: Vec<i32> = Vec::new();
+    // let mut vec2: Vec<i32> = vec![1, 2, 3, 4, 5];
+    // vec2.push(6);
+    // vec2.push(7);
+
+    // println!("vec2: {:?}", vec2);
+    // println!("1st: {}", vec2[0]);
+    // let second: &i32 = &vec2[1];
+    // match vec2.get(2) {
+    //     Some(second) => println!("3rd: {}", second),
+    //     None => println!("No 3rd element"),
+    // }
+
+    // for i in &mut vec2 {
+    //     *i += 50;
+    // }
+
+    // for i in &vec2 {
+    //     println!("i: {}", i);
+    // }
+
+    // println!("vec2: {:?}", vec2);
+    // println!("Vec Length: {}", vec2.len());
+    // println!("Pop Value: {:?}", vec2.pop());
+
+    // say_hello();
+
+    // let num_list: Vec<i32> = vec![1, 2, 3, 4, 5];
+    // println!("Sum: {}", sum_list(&num_list));
+    
+}
+
+fn sum_list(list: &[i32]) -> i32 {
+    let mut sum = 0;
+    for i in list {
+        sum += i;
     }
+    return sum;
+}
 
-    let st2 = st1.replace("a", "Another");
-    println!("st2: {}", st2);
+fn get_sum(x: i32, y: i32) -> (i32, i32) {
+    return (x + y, x - y);
+}
+
+fn say_hello() {
+    // println!("Hello");
+    println!("Sum: {}", get_sum(5, 6).0);
+    println!("Sum: {}", get_sum(5, 6).1);
 }
