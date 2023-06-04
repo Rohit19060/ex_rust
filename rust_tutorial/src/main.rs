@@ -1,12 +1,45 @@
 #![allow(unused)]
 
+use ferris_says::say;
 use rand::Rng;
 use std::cmp::Ordering;
 use std::fs::File;
 use std::io;
-use std::io::{BufRead, BufReader, ErrorKind, Write};
+use std::io::{stdout, BufRead, BufReader, BufWriter, ErrorKind, Write}; // from the previous step
+
+// fn first_name() {
+//     println!("Rohit");
+// }
+
+// fn last_name() {
+//     println!("Jain");
+// }
+
+// fn sub(a: i32, b: i32) -> i32 {
+//     a - b
+// }
+
+// enum Direction {
+//     Up,
+//     Down,
+//     Left,
+//     Right,
+// }
+
+// struct GroceryItem {
+//     stock: i32,
+//     price: f64,
+// }
 
 fn main() {
+    let stdout = stdout();
+    let message = String::from("Hello fellow Rustaceans!");
+    let width = message.chars().count();
+
+    let mut writer = BufWriter::new(stdout.lock());
+    // say(message.as_bytes(), width, &mut writer).unwrap();
+    say(&message, width, &mut writer).unwrap();
+
     // println!("What is your name?");
     // let mut name = String::new();
     // let greetings = "Nice to meet you";
@@ -248,23 +281,180 @@ fn main() {
 
     // let num_list: Vec<i32> = vec![1, 2, 3, 4, 5];
     // println!("Sum: {}", sum_list(&num_list));
-    
+
+    // Display a message to the user
+    // let sum = 2 + 2;
+    // let value = 10 - 5;
+    // let result = sub(sum, value);
+    // println!("Hello, world! {} {} {:?}", sum, value, result);
+
+    // let age = 15;
+    // if age >= 21 {
+    //     println!("ok to purchase");
+    // } else {
+    //     println!("not ok to purchase");
+    // }
+
+    // let my_bool = true;
+    // if my_bool {
+    //     println!("hello");
+    // } else {
+    //     println!("good bye");
+    // }
+
+    // let n = 5;
+    // if n > 5 {
+    //     println!("n is greater than 5");
+    // } else if n > 0 {
+    //     println!("n is greater than 0");
+    // } else {
+    //     println!("n is less than 0");
+    // }
+
+    // let name = "Rohit Jain";
+
+    // match name {
+    //     "Rohit Jain" => println!("hello"),
+    //     "Mohit" => println!("good bye"),
+    //     _ => println!("default"),
+    // }
+
+    // let x = true;
+
+    // match x {
+    //     true => println!("true"),
+    //     false => println!("false"),
+    // }
+
+    // let mut i = 3;
+    // let x = 3;
+
+    // loop {
+    //     println!("{} {}", i, x);
+    //     i -= 1;
+    //     if i == 0 {
+    //         break;
+    //     }
+    // }
+    // println!("done");
+
+    // let mut i = 1;
+
+    // while i <= 3 {
+    //     println!("{}", i);
+    //     i += 1;
+    // }
+    // which_way(Direction::Up);
+    // which_way(Direction::Down);
+    // which_way(Direction::Right);
+    // which_way(Direction::Left);
+
+    // let cereal = GroceryItem {
+    //     stock: 10,
+    //     price: 3.50,
+    // };
+    // println!("Stock: {} Price: {}", cereal.stock, cereal.price);
+    // print_drink(Drink {
+    //     flavor: Flavor::Sparkling,
+    //     fluid_oz: 12.0,
+    // });
+    // print_drink(Drink {
+    //     flavor: Flavor::Sweet,
+    //     fluid_oz: 12.0,
+    // });
+    // print_drink(Drink {
+    //     flavor: Flavor::Fruity,
+    //     fluid_oz: 12.0,
+    // });
+
+    // let coord = (2, 3);
+    // println!("x: {:?} y: {:?}", coord.0, coord.1);
+
+    // let (x, y) = (5, 6);
+    // println!("x: {:?} y: {:?}", x, y);
+
+    // let user_info = ("Emma", 30);
+    // println!("Name: {:?} Age: {:?}", user_info.0, user_info.1);
+
+    // let favorites = ("red", 14, "TX", "pizza", "TV Show", "home");
+    // let state = favorites.2;
+    // println!("State: {:?}", state);
+    // println!("Favorite color: {:?}", favorites.0);
+
+    // display_light1(dull);
+
+    let mut t = term::stdout().unwrap();
+    t.fg(term::color::GREEN).unwrap();
+    write!(t, "Hello, ").unwrap();
+    t.fg(term::color::RED).unwrap();
+    writeln!(t, "world!").unwrap();
+    t.reset().unwrap();
+
+    let dull = Light::Dull;
+    display_light(&dull);
+    display_light(&dull);
+    display_light(&dull);
+    display_light1(dull);
 }
 
-fn sum_list(list: &[i32]) -> i32 {
-    let mut sum = 0;
-    for i in list {
-        sum += i;
+// fn sum_list(list: &[i32]) -> i32 {
+//     let mut sum = 0;
+//     for i in list {
+//         sum += i;
+//     }
+//     return sum;
+// }
+
+// fn get_sum(x: i32, y: i32) -> (i32, i32) {
+//     return (x + y, x - y);
+// }
+
+// fn say_hello() {
+//     // println!("Hello");
+//     println!("Sum: {}", get_sum(5, 6).0);
+//     println!("Sum: {}", get_sum(5, 6).1);
+// }
+
+fn display_light(light: &Light) {
+    match light {
+        Light::Bright => println!("Bright"),
+        Light::Dull => println!("Dull"),
     }
-    return sum;
+}
+fn display_light1(light: Light) {
+    match light {
+        Light::Bright => println!("Bright"),
+        Light::Dull => println!("Dull"),
+    }
 }
 
-fn get_sum(x: i32, y: i32) -> (i32, i32) {
-    return (x + y, x - y);
+enum Light {
+    Bright,
+    Dull,
 }
 
-fn say_hello() {
-    // println!("Hello");
-    println!("Sum: {}", get_sum(5, 6).0);
-    println!("Sum: {}", get_sum(5, 6).1);
-}
+// fn which_way(go: Direction) {
+//     match go {
+//         Direction::Up => println!("Up"),
+//         Direction::Down => println!("Down"),
+//         _ => println!("Left or Right"),
+//     }
+// }
+
+// enum Flavor {
+//     Sparkling,
+//     Sweet,
+//     Fruity,
+// }
+// struct Drink {
+//     flavor: Flavor,
+//     fluid_oz: f64,
+// }
+
+// fn print_drink(drink: Drink) {
+//     match drink.flavor {
+//         Flavor::Sparkling => println!("Flavor: Sparkling, {:?} oz", drink.fluid_oz),
+//         Flavor::Sweet => println!("Flavor: Sweet, {:?} oz", drink.fluid_oz),
+//         Flavor::Fruity => println!("Flavor: Fruity, {:?} oz", drink.fluid_oz),
+//     }
+// }
