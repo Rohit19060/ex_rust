@@ -19,11 +19,13 @@ fn main() {
         Ok(files) => files,
         Err(err) => {
             eprintln!("Error reading workspace directory: {}", err);
+            pause_before_exit();
             return;
         }
     };
 
     prompt_for_workspace_file(&workspace_files, workspace_input);
+    pause_before_exit();
 }
 
 fn get_workspace_files(dir: &str) -> io::Result<Vec<String>> {
@@ -87,4 +89,9 @@ fn open_workspace_file(workspace_file: &str) {
     } else {
         println!("Workspace file not found: {}", workspace_file);
     }
+}
+
+fn pause_before_exit() {
+    println!("Press Enter to exit...");
+    io::stdin().read_line(&mut String::new()).unwrap();
 }
