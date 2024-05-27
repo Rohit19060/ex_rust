@@ -58,13 +58,19 @@ fn prompt_for_workspace_file(workspace_files: &[String], initial_input: &str) {
                 }
 
                 input.clear();
-                io::stdin().read_line(&mut input).unwrap();
-                let input_trimmed = input.trim();
-
-                if input_trimmed.eq_ignore_ascii_case("exit") {
-                    return;
-                } else {
-                    input = input_trimmed.to_string();
+                match io::stdin().read_line(&mut input) {
+                    Ok(_) => {
+                        let input_trimmed = input.trim();
+                        if input_trimmed.eq_ignore_ascii_case("exit") {
+                            return;
+                        } else {
+                            input = input_trimmed.to_string();
+                        }
+                    }
+                    Err(err) => {
+                        eprintln!("Error reading input: {}", err);
+                        return;
+                    }
                 }
             }
         }
